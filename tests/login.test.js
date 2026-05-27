@@ -4,7 +4,7 @@ const chrome = require('selenium-webdriver/chrome');
 (async function loginTest() {
 
     let options = new chrome.Options();
-    options.addArguments('--headless', '--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--window-size=1920,1080');
+    options.addArguments("--headless");
 
     let driver = await new Builder()
         .forBrowser('chrome')
@@ -12,8 +12,9 @@ const chrome = require('selenium-webdriver/chrome');
         .build();
 
     try {
+        await driver.manage().setTimeouts({ implicit: 10000 }); // 5 seconds   
 
-        await driver.get('http://localhost:4000/');
+        await driver.get('http://localhost:3000/');
 
         // wait until page loads
         await driver.wait(until.elementLocated(By.id('username')), 5000);
